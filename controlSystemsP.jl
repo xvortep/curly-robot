@@ -22,24 +22,24 @@ end
 
 k1 = [0.1, 0.3, 0.7]
 k2 = [0.2, 0.5]
-pairs = vec([(i, j) for i in k1, j in k2])
+pairs = vec([(i, j) for i in k1, j in k2])    #create all combinations in tuple form
 
 t = 0:0.01:10
 
 u1 = sin.(t)
 u2 = cos.(t)
 
-wa = @. sistem(pairs)
-w11 = [w[1] for w in wa]
-w22 = [w[2] for w in wa]
+wa = @. sistem(pairs)                         #call sistem on all combinations of k1 and k2. This line will return vector of (w1, w2) tuples
+w11 = [w[1] for w in wa]                      #extract w1 from vector
+w22 = [w[2] for w in wa]                      #extract w2 from vector
 
-y1o = [lsim(w, u1', t) for w in w11]
+y1o = [lsim(w, u1', t) for w in w11]          #simulation
 y2o = [lsim(w, u2', t) for w in w22]
-yy1 = [yy[1] for yy in y1o]
+yy1 = [yy[1] for yy in y1o]                   #simulation will return (y, t, x), however we need only y
 yy2 = [yy[1] for yy in y2o]
 
-yp = @. yy1 + yy2
-y = [vec(h) for h in yp]
+yp = @. yy1 + yy2                             #this line will return vector of matrices
+y = [vec(h) for h in yp]                      #convert it to vector of vectors
 
-plot(t, y, lw=2, xticks=0:2:10, xlabel="t")
+plot(t, y, lw=2, xticks=0:2:10, xlabel="t")   #for plotting purposes
 
