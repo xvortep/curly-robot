@@ -26,8 +26,8 @@ pairs = vec([(i, j) for i in k1, j in k2])    #create all combinations in tuple 
 
 t = 0:0.01:10
 
-u1 = sin.(t)
-u2 = cos.(t)
+u1 = @. sin(t)
+u2 = @. cos(t)
 
 wa = @. sistem(pairs)                         #call sistem on all combinations of k1 and k2. This line will return vector of (w1, w2) tuples
 w11 = [w[1] for w in wa]                      #extract w1 from vector
